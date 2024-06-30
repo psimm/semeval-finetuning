@@ -41,12 +41,10 @@ lora_modules_to_save: # required when adding new tokens to LLaMA/Mistral
   - embed_tokens
   - lm_head
 
-wandb_project: absa-semeval2014
-wandb_entity: psimm
+wandb_project:
+wandb_entity:
 wandb_log_model:
-wandb_name: mistral-7b-semeval2014
-
-hub_model_id: psimm/mistral-7b-semeval2014
+wandb_name:
 
 gradient_accumulation_steps: 1
 micro_batch_size: 32

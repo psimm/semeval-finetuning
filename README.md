@@ -12,9 +12,7 @@ This repository is a fork of [modal-labs/llm-finetuning](https://github.com/moda
 
 This project uses Modal for training and inference. You'll need a Modal account to run the training and inference scripts. You can sign up for a free account at [https://modal.com](https://modal.com). The free tier is enough to train and evaluate multiple models.
 
-Weights & Biases is used for tracking experiments. A free account can be created at [https://wandb.ai](https://wandb.ai).
-
-Setup the `wandb` secret in Modal.
+Weights & Biases can be used for tracking experiments. A free account can be created at [https://wandb.ai](https://wandb.ai). If you use W&B, set the `ALLOW_WANDB` environment variable to `true` and edit the wandb configuration in the axolotl config files. Also set the `wandb` secret in Modal.
 
 To download the [Llama-3-8B model](https://huggingface.co/meta-llama/Meta-Llama-3-8B), a HuggingFace account is required. Further, access has to be requested for the model.
 
