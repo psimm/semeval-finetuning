@@ -30,7 +30,7 @@ axolotl_image = (
             HUGGINGFACE_HUB_CACHE="/pretrained",
             HF_HUB_ENABLE_HF_TRANSFER="1",
             TQDM_DISABLE="true",
-            AXOLOTL_NCCL_TIMEOUT="60",
+            AXOLOTL_NCCL_TIMEOUT="3600",
         )
     )
 )
