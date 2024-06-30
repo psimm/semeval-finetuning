@@ -65,3 +65,13 @@ python src/eval.py --wandb-name <wandb-id>
 ```
 
 Where the wandb-id is the id of the run in Weights & Biases. Leave out the `--wandb-name` argument if you're not using Weights & Biases. Then the metrics will be printed to the console.
+
+## 5: Optional: Push the LoRA adapter to HuggingFace (Modal)
+
+```bash
+modal run src.push_lora_adapter --run-name <run-name> --repo-id <huggingface-repo-id>
+```
+
+Where run-name is the name of the run with the trained model from step 2 and repo-id is the id of the HuggingFace repository you want to push the adapter to.
+
+This is done as a separate step because axolotl can get stuck at the end of a training run if hub_model_id is set in the config. This is a workaround to avoid that.

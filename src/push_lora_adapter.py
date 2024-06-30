@@ -31,7 +31,7 @@ def get_lora_path_from_run(path: Path) -> Path:
     gpu="a100",
     volumes=VOLUME_CONFIG,
 )
-def push_lora_adapter(run_name: str, repo_name: str):
+def push_lora_adapter(run_name: str, repo_id: str):
     """
     Load a local LoRA adapter and push it to the Hugging Face Hub.
     """
@@ -60,11 +60,11 @@ def push_lora_adapter(run_name: str, repo_name: str):
     print("Model and LoRA adapter loaded.")
 
     # Push the LoRA adapter to the Hugging Face Hub
-    model.push_to_hub(repo_name, use_auth_token=True)
-    peft_config.push_to_hub(repo_name, use_auth_token=True)
-    print(f"Pushed LoRA adapter to {repo_name}.")
+    model.push_to_hub(repo_id, use_auth_token=True)
+    peft_config.push_to_hub(repo_id, use_auth_token=True)
+    print(f"Pushed LoRA adapter to {repo_id}.")
 
 
 @app.local_entrypoint()
-def push_lora_adapter_main(run_name: str, repo_name: str):
-    push_lora_adapter.remote(run_name, repo_name)
+def push_lora_adapter_main(run_name: str, repo_id: str):
+    push_lora_adapter.remote(run_name, repo_id)
