@@ -38,8 +38,10 @@ axolotl_image = (
 vllm_image = modal.Image.from_registry(
     "nvidia/cuda:12.1.0-base-ubuntu22.04", add_python="3.10"
 ).pip_install(
-    "vllm==0.2.6",
+    "vllm==0.3.3",
     "torch==2.1.2",
+    "outlines",
+    "autoawq",
     "numpy<2",  # To avoid vLLM ecosystem compatibility issues
 )
 

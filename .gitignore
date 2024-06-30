@@ -163,3 +163,8 @@ cython_debug/
 
 # Local file written by the training script
 .last_run_name
+
+venv/
+wandb/
+data/semeval2014/cleaned.parquet
+data/semeval2014/*.jsonl
