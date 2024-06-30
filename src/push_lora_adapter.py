@@ -8,7 +8,7 @@ from pathlib import Path
 import modal
 import yaml
 
-from .common import VOLUME_CONFIG, app
+from .common import VOLUME_CONFIG, app, HOURS
 
 GPU_CONFIG = os.environ.get("GPU_CONFIG", "a100")
 
@@ -38,6 +38,7 @@ def get_extra_tokens_from_run(path: Path) -> Path:
     image=hf_image,
     gpu=GPU_CONFIG,
     volumes=VOLUME_CONFIG,
+    timeout=HOURS * 24,
 )
 def push_lora_adapter(run_name: str, repo_id: str):
     """
