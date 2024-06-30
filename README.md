@@ -72,6 +72,4 @@ Where the wandb-id is the id of the run in Weights & Biases. Leave out the `--wa
 modal run src.push_lora_adapter --run-name <run-name> --repo-id <huggingface-repo-id>
 ```
 
-Where run-name is the name of the run with the trained model from step 2 and repo-id is the id of the HuggingFace repository you want to push the adapter to.
-
-This is done as a separate step because axolotl can get stuck at the end of a training run if hub_model_id is set in the config. This is a workaround to avoid that.
+Where run-name is the name of the run with the trained model from step 2 and repo-id is the id of the HuggingFace repository you want to push the adapter to. This is done as a separate step because axolotl can get stuck at the end of a training run if hub_model_id is set in the config. This is a workaround to avoid that. The code in push_lora_adapter.py can also help you load the adapter for inference because that requires a step of adding new tokens to the base model's embedding layer.

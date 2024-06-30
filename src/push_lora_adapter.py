@@ -29,6 +29,11 @@ def get_lora_path_from_run(path: Path) -> Path:
         return path / yaml.safe_load(f.read())["output_dir"]
 
 
+def get_extra_tokens_from_run(path: Path) -> Path:
+    with (path / "config.yml").open() as f:
+        return yaml.safe_load(f.read())["tokens"]
+
+
 @app.function(
     image=hf_image,
     gpu=GPU_CONFIG,
@@ -53,11 +58,24 @@ def push_lora_adapter(run_name: str, repo_id: str):
     snapshot_download(base_model, local_files_only=True)
     print(f"Volume contains {base_model}.")
 
+    base_model_loaded = AutoModelForCausalLM.from_pretrained(base_model)
+
+    extra_tokens = get_extra_tokens_from_run(path)
+
+    if len(extra_tokens) > 0:
+        base_model_loaded.resize_token_embeddings(
+            base_model_loaded.config.vocab_size + len(extra_tokens)
+        )
+
+        print(f"Added {len(extra_tokens)} extra tokens to the base model.")
+        # If you want to run inference you'll also have to add the extra tokens to the tokenizer
+        # tokenizer = AutoTokenizer.from_pretrained(base_model)
+
     # Check that the LoRA adapter can be loaded
     # and is compatible with the base model
     peft_config = PeftConfig.from_pretrained(lora_path)
     model = PeftModel.from_pretrained(
-        AutoModelForCausalLM.from_pretrained(base_model),
+        base_model_loaded,
         lora_path,
     )
     print("Model and LoRA adapter loaded.")
