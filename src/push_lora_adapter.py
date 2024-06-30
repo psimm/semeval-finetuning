@@ -2,12 +2,15 @@
 # This is a workaround to a bug in axolotl that stalls the training process
 # at the end when hub_model_id is set in the config.yml.
 
+import os
 from pathlib import Path
 
 import modal
 import yaml
 
 from .common import VOLUME_CONFIG, app
+
+GPU_CONFIG = os.environ.get("GPU_CONFIG", "a100")
 
 hf_image = (
     modal.Image.from_registry("nvidia/cuda:12.1.0-base-ubuntu22.04", add_python="3.10")
@@ -28,7 +31,7 @@ def get_lora_path_from_run(path: Path) -> Path:
 
 @app.function(
     image=hf_image,
-    gpu="a100",
+    gpu=GPU_CONFIG,
     volumes=VOLUME_CONFIG,
 )
 def push_lora_adapter(run_name: str, repo_id: str):
