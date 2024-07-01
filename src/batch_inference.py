@@ -70,7 +70,7 @@ def batch_completion(
         temperature=0,
         top_p=0.95,
         top_k=50,
-        max_tokens=128,
+        max_tokens=256,
     )
 
     if not use_outlines:
